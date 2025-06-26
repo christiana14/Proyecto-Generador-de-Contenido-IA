@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generador de Contenido IA - Crea contenido inteligente</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .animate-pulse-slow {
+            animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="gradient-bg text-white shadow-lg">
+        <nav class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-2">
+                    <i class="fas fa-robot text-2xl"></i>
+                    <h1 class="text-2xl font-bold">ContentAI</h1>
+                </div>
+                <div class="hidden md:flex space-x-6">
+                    <a href="#features" class="hover:text-blue-200 transition">Características</a>
+                    <a href="#pricing" class="hover:text-blue-200 transition">Precios</a>
+                    <a href="#api" class="hover:text-blue-200 transition">API</a>
+                </div>
+                <div class="flex space-x-4">
+                    <button id="loginBtn" class="px-4 py-2 rounded-lg hover:bg-white hover:text-purple-600 transition">
+                        Iniciar Sesión
+                    </button>
+                    <button id="registerBtn" class="px-4 py-2 bg-white text-purple-600 rounded-lg hover:bg-gray-100 transition">
+                        Registrarse
+                    </button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="gradient-bg text-white py-20">
+        <div class="container mx-auto px-6 text-center">
+            <h1 class="text-5xl md:text-6xl font-bold mb-6">
+                Crea Contenido <span class="text-yellow-300">Inteligente</span>
+            </h1>
+            <p class="text-xl mb-8 max-w-3xl mx-auto">
+                Genera posts, emails, descripciones y más con IA avanzada. 
+                Ahorra tiempo y crea contenido que convierte.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <button id="startFreeBtn" class="px-8 py-4 bg-yellow-400 text-purple-800 rounded-lg font-bold hover:bg-yellow-300 transition">
+                    Empezar Gratis
+                </button>
+                <button id="demoBtn" class="px-8 py-4 glass-effect rounded-lg font-bold hover:bg-white hover:text-purple-600 transition">
+                    Ver Demo
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Generator Section -->
+    <section id="generator" class="py-16 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="text-3xl font-bold text-center mb-12">Generador de Contenido</h2>
+                
+                <div class="grid md:grid-cols-2 gap-8">
+                    <!-- Form -->
+                    <div class="space-y-6">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                Tipo de Contenido
+                            </label>
+                            <select id="contentType" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent">
+                                <option value="post_social">Post para Redes Sociales</option>
+                                <option value="email">Email Marketing</option>
+                                <option value="description">Descripción de Producto</option>
+                                <option value="title">Títulos SEO</option>
+                                <option value="blog_post">Artículo de Blog</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                Tema o Tópico
+                            </label>
+                            <input type="text" id="topic" placeholder="Ej: Inteligencia Artificial en el Marketing" 
+                                   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent">
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                Tono
+                            </label>
+                            <select id="tone" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent">
+                                <option value="profesional">Profesional</option>
+                                <option value="casual">Casual</option>
+                                <option value="amigable">Amigable</option>
+                                <option value="formal">Formal</option>
+                                <option value="creativo">Creativo</option>
+                                <option value="persuasivo">Persuasivo</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                Longitud
+                            </label>
+                            <select id="length" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent">
+                                <option value="corta">Corta</option>
+                                <option value="media">Media</option>
+                                <option value="larga">Larga</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                Instrucciones Adicionales (Opcional)
+                            </label>
+                            <textarea id="additionalPrompt" rows="3" placeholder="Agrega instrucciones específicas..." 
+                                      class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"></textarea>
+                        </div>
+
+                        <button id="generateBtn" class="w-full py-4 gradient-bg text-white rounded-lg font-bold hover:opacity-90 transition flex items-center justify-center">
+                            <i class="fas fa-magic mr-2"></i>
+                            Generar Contenido
+                        </button>
+                    </div>
+
+                    <!-- Result -->
+                    <div class="space-y-6">
+                        <div class="bg-gray-50 rounded-lg p-6 h-full">
+                            <h3 class="text-lg font-semibold mb-4">Contenido Generado</h3>
+                            <div id="result" class="bg-white rounded-lg p-4 min-h-[300px] border">
+                                <p class="text-gray-500 text-center mt-20">
+                                    <i class="fas fa-robot text-4xl mb-4 block"></i>
+                                    Tu contenido aparecerá aquí
+                                </p>
+                            </div>
+                            <div id="loading" class="hidden text-center mt-4">
+                                <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-purple-600 mx-auto"></div>
+                                <p class="text-gray-600 mt-2">Generando contenido...</p>
+                            </div>
+                            <div id="actions" class="hidden mt-4 space-y-2">
+                                <button id="copyBtn" class="w-full py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition">
+                                    <i class="fas fa-copy mr-2"></i>Copiar
+                                </button>
+                                <button id="saveBtn" class="w-full py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition">
+                                    <i class="fas fa-save mr-2"></i>Guardar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center mb-12">Características</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="text-center">
+                    <div class="bg-purple-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-brain text-2xl text-purple-600"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">IA Avanzada</h3>
+                    <p class="text-gray-600">Utiliza los últimos modelos de IA para generar contenido de alta calidad.</p>
+                </div>
+                <div class="text-center">
+                    <div class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-bolt text-2xl text-blue-600"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Generación Rápida</h3>
+                    <p class="text-gray-600">Obtén contenido en segundos, no en horas.</p>
+                </div>
+                <div class="text-center">
+                    <div class="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-chart-line text-2xl text-green-600"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Optimizado para Conversión</h3>
+                    <p class="text-gray-600">Contenido diseñado para generar engagement y ventas.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="py-16 bg-white">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center mb-12">Planes y Precios</h2>
+            <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+                <!-- Free Plan -->
+                <div class="bg-gray-50 rounded-lg p-8 text-center">
+                    <h3 class="text-2xl font-bold mb-4">Gratuito</h3>
+                    <div class="text-4xl font-bold mb-6">$0<span class="text-lg text-gray-500">/mes</span></div>
+                    <ul class="space-y-3 mb-8">
+                        <li><i class="fas fa-check text-green-500 mr-2"></i>10 generaciones/mes</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i>Contenido básico</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i>Soporte por email</li>
+                    </ul>
+                    <button class="w-full py-3 bg-gray-300 text-gray-700 rounded-lg font-bold">Plan Actual</button>
+                </div>
+
+                <!-- Pro Plan -->
+                <div class="bg-purple-50 border-2 border-purple-200 rounded-lg p-8 text-center relative">
+                    <div class="absolute -top-4 left-1/2 transform -translate-x-1/2">
+                        <span class="bg-purple-600 text-white px-4 py-1 rounded-full text-sm">Más Popular</span>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Pro</h3>
+                    <div class="text-4xl font-bold mb-6">$29<span class="text-lg text-gray-500">/mes</span></div>
+                    <ul class="space-y-3 mb-8">
+                        <li><i class="fas fa-check text-green-500 mr-2"></i>1000 generaciones/mes</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i>Todos los tipos de contenido</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i>API access</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i>Analytics avanzados</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i>Soporte prioritario</li>
+                    </ul>
+                    <button class="w-full py-3 gradient-bg text-white rounded-lg font-bold hover:opacity-90 transition">Actualizar a Pro</button>
+                </div>
+
+                <!-- Enterprise Plan -->
+                <div class="bg-gray-50 rounded-lg p-8 text-center">
+                    <h3 class="text-2xl font-bold mb-4">Enterprise</h3>
+                    <div class="text-4xl font-bold mb-6">$99<span class="text-lg text-gray-500">/mes</span></div>
+                    <ul class="space-y-3 mb-8">
+                        <li><i class="fas fa-check text-green-500 mr-2"></i>Generaciones ilimitadas</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i>Prioridad en cola</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i>Soporte dedicado</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i>White-label disponible</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i>Integración personalizada</li>
+                    </ul>
+                    <button class="w-full py-3 bg-gray-800 text-white rounded-lg font-bold hover:bg-gray-700 transition">Contactar Ventas</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">ContentAI</h3>
+                    <p class="text-gray-400">Generador de contenido inteligente para empresas y creadores.</p>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Producto</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-white transition">Características</a></li>
+                        <li><a href="#" class="hover:text-white transition">Precios</a></li>
+                        <li><a href="#" class="hover:text-white transition">API</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Soporte</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-white transition">Documentación</a></li>
+                        <li><a href="#" class="hover:text-white transition">Contacto</a></li>
+                        <li><a href="#" class="hover:text-white transition">FAQ</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Legal</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-white transition">Privacidad</a></li>
+                        <li><a href="#" class="hover:text-white transition">Términos</a></li>
+                        <li><a href="#" class="hover:text-white transition">Cookies</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; 2024 ContentAI. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modals -->
+    <div id="loginModal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50">
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="bg-white rounded-lg p-8 max-w-md w-full">
+                <h2 class="text-2xl font-bold mb-6">Iniciar Sesión</h2>
+                <form id="loginForm" class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                        <input type="email" id="loginEmail" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Contraseña</label>
+                        <input type="password" id="loginPassword" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500">
+                    </div>
+                    <button type="submit" class="w-full py-3 gradient-bg text-white rounded-lg font-bold">Iniciar Sesión</button>
+                </form>
+                <button id="closeLoginModal" class="absolute top-4 right-4 text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="registerModal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50">
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="bg-white rounded-lg p-8 max-w-md w-full">
+                <h2 class="text-2xl font-bold mb-6">Registrarse</h2>
+                <form id="registerForm" class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Nombre Completo</label>
+                        <input type="text" id="registerName" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Username</label>
+                        <input type="text" id="registerUsername" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                        <input type="email" id="registerEmail" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Contraseña</label>
+                        <input type="password" id="registerPassword" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500">
+                    </div>
+                    <button type="submit" class="w-full py-3 gradient-bg text-white rounded-lg font-bold">Registrarse</button>
+                </form>
+                <button id="closeRegisterModal" class="absolute top-4 right-4 text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // API Base URL
+        const API_BASE = '/api/v1';
+        let authToken = localStorage.getItem('authToken');
+
+        // Modal functions
+        function showModal(modalId) {
+            document.getElementById(modalId).classList.remove('hidden');
+        }
+
+        function hideModal(modalId) {
+            document.getElementById(modalId).classList.add('hidden');
+        }
+
+        // Event listeners
+        document.getElementById('loginBtn').addEventListener('click', () => showModal('loginModal'));
+        document.getElementById('registerBtn').addEventListener('click', () => showModal('registerModal'));
+        document.getElementById('closeLoginModal').addEventListener('click', () => hideModal('loginModal'));
+        document.getElementById('closeRegisterModal').addEventListener('click', () => hideModal('registerModal'));
+
+        // Generate content
+        document.getElementById('generateBtn').addEventListener('click', async () => {
+            if (!authToken) {
+                alert('Por favor inicia sesión para generar contenido');
+                return;
+            }
+
+            const contentType = document.getElementById('contentType').value;
+            const topic = document.getElementById('topic').value;
+            const tone = document.getElementById('tone').value;
+            const length = document.getElementById('length').value;
+            const additionalPrompt = document.getElementById('additionalPrompt').value;
+
+            if (!topic.trim()) {
+                alert('Por favor ingresa un tema');
+                return;
+            }
+
+            // Show loading
+            document.getElementById('loading').classList.remove('hidden');
+            document.getElementById('result').innerHTML = '';
+
+            try {
+                const response = await fetch(`${API_BASE}/generate`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${authToken}`
+                    },
+                    body: JSON.stringify({
+                        content_type: contentType,
+                        topic: topic,
+                        tone: tone,
+                        length: length,
+                        additional_prompt: additionalPrompt || null
+                    })
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    document.getElementById('result').innerHTML = `
+                        <div class="prose max-w-none">
+                            <h4 class="text-lg font-semibold mb-2">Contenido Generado:</h4>
+                            <div class="whitespace-pre-wrap">${data.generated_content}</div>
+                            <div class="mt-4 text-sm text-gray-500">
+                                <p>Tiempo de procesamiento: ${data.processing_time}ms</p>
+                                <p>Tokens utilizados: ${data.tokens_used}</p>
+                            </div>
+                        </div>
+                    `;
+                    document.getElementById('actions').classList.remove('hidden');
+                } else {
+                    const error = await response.json();
+                    document.getElementById('result').innerHTML = `
+                        <div class="text-red-600">
+                            <p>Error: ${error.detail}</p>
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                document.getElementById('result').innerHTML = `
+                    <div class="text-red-600">
+                        <p>Error de conexión: ${error.message}</p>
+                    </div>
+                `;
+            } finally {
+                document.getElementById('loading').classList.add('hidden');
+            }
+        });
+
+        // Copy content
+        document.getElementById('copyBtn').addEventListener('click', () => {
+            const content = document.getElementById('result').textContent;
+            navigator.clipboard.writeText(content).then(() => {
+                alert('Contenido copiado al portapapeles');
+            });
+        });
+
+        // Login form
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const formData = new FormData();
+            formData.append('username', document.getElementById('loginEmail').value);
+            formData.append('password', document.getElementById('loginPassword').value);
+
+            try {
+                const response = await fetch(`${API_BASE}/auth/login`, {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    authToken = data.access_token;
+                    localStorage.setItem('authToken', authToken);
+                    hideModal('loginModal');
+                    updateUI();
+                } else {
+                    alert('Error en el login');
+                }
+            } catch (error) {
+                alert('Error de conexión');
+            }
+        });
+
+        // Register form
+        document.getElementById('registerForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const userData = {
+                email: document.getElementById('registerEmail').value,
+                username: document.getElementById('registerUsername').value,
+                password: document.getElementById('registerPassword').value,
+                full_name: document.getElementById('registerName').value
+            };
+
+            try {
+                const response = await fetch(`${API_BASE}/auth/register`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(userData)
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    authToken = data.access_token;
+                    localStorage.setItem('authToken', authToken);
+                    hideModal('registerModal');
+                    updateUI();
+                } else {
+                    const error = await response.json();
+                    alert(`Error: ${error.detail}`);
+                }
+            } catch (error) {
+                alert('Error de conexión');
+            }
+        });
+
+        // Update UI based on auth status
+        function updateUI() {
+            if (authToken) {
+                document.getElementById('loginBtn').style.display = 'none';
+                document.getElementById('registerBtn').textContent = 'Dashboard';
+                document.getElementById('registerBtn').onclick = () => window.location.href = '/dashboard';
+            }
+        }
+
+        // Initialize
+        updateUI();
+    </script>
+</body>
+</html> 
