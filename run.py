@@ -3,7 +3,6 @@
 Script principal para ejecutar el Generador de Contenido IA
 """
 
-import uvicorn
 import os
 import sys
 from pathlib import Path
@@ -25,7 +24,7 @@ def main():
     
     # Verificar dependencias
     try:
-        import fastapi
+        import flask
         import openai
         print("✅ Dependencias verificadas")
     except ImportError as e:
@@ -58,17 +57,11 @@ def main():
     
     # Iniciar servidor
     print("🌐 Iniciando servidor en http://localhost:8000")
-    print("📚 Documentación API: http://localhost:8000/docs")
     print("🔴 Para detener: Ctrl+C")
     
     try:
-        uvicorn.run(
-            "app.main:app",
-            host="0.0.0.0",
-            port=8000,
-            reload=True,
-            log_level="info"
-        )
+        from app.main import app
+        app.run(host="0.0.0.0", port=8000, debug=True)
     except KeyboardInterrupt:
         print("\n👋 Servidor detenido")
     except Exception as e:
