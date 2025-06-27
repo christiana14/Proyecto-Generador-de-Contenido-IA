@@ -37,11 +37,19 @@ bcrypt = Bcrypt(app)
 # Configurar CORS
 CORS(app, origins=settings.cors_origins)
 
-# Crear tablas
-with app.app_context():
-    user.Base.metadata.create_all(bind=engine)
-    generation_model.Base.metadata.create_all(bind=engine)
-    api_key.Base.metadata.create_all(bind=engine)
+# Crear tablas solo si no existen (optimización)
+def init_db():
+    try:
+        with app.app_context():
+            user.Base.metadata.create_all(bind=engine)
+            generation_model.Base.metadata.create_all(bind=engine)
+            api_key.Base.metadata.create_all(bind=engine)
+            print("✅ Base de datos inicializada")
+    except Exception as e:
+        print(f"⚠️ Error inicializando DB: {e}")
+
+# Inicializar DB de forma asíncrona
+init_db()
 
 @app.route('/')
 def index():
