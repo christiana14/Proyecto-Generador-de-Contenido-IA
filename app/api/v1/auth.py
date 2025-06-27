@@ -5,7 +5,6 @@ from pydantic import BaseModel, EmailStr
 from app.core.database import get_db
 from app.core.auth import authenticate_user, create_access_token, get_password_hash, get_current_user
 from app.models.user import User, UserRole
-from app.services.stripe_service import StripeService
 import logging
 
 logger = logging.getLogger(__name__)
@@ -74,15 +73,6 @@ async def register(
         db.add(user)
         db.commit()
         db.refresh(user)
-        
-        # Crear cliente en Stripe
-        stripe_service = StripeService()
-        try:
-            stripe_customer_id = stripe_service.create_customer(user)
-            user.stripe_customer_id = stripe_customer_id
-            db.commit()
-        except Exception as e:
-            logger.warning(f"No se pudo crear cliente en Stripe: {str(e)}")
         
         # Generar token
         access_token = create_access_token(data={"sub": user.id})
