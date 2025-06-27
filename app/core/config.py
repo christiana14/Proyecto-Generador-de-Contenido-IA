@@ -21,10 +21,10 @@ class Settings(BaseSettings):
     openai_model: str = "gpt-3.5-turbo"
     openai_max_tokens: int = 1000
     
-    # Stripe
-    stripe_secret_key: str = "sk_test_tu-stripe-secret-key"
-    stripe_publishable_key: str = "pk_test_tu-stripe-publishable-key"
-    stripe_webhook_secret: str = "whsec_tu-webhook-secret"
+    # Wompi (El Salvador)
+    wompi_app_id: str = "prueba-app-id"
+    wompi_api_secret: str = "prueba-api-secret"
+    wompi_env: str = "staging"  # staging para pruebas, production para real
     
     # Email
     smtp_host: Optional[str] = None
@@ -53,8 +53,9 @@ class Settings(BaseSettings):
     log_level: str = "INFO"
     log_file: str = "logs/app.log"
     
-    class Config:
-        env_file = ".env"
-        case_sensitive = False
+    model_config = {
+        "env_file": ".env",
+        "case_sensitive": False
+    }
 
 settings = Settings() 
