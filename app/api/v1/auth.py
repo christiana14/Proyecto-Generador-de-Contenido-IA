@@ -1,24 +1,37 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel, validator
 from app.core.database import get_db
 from app.core.auth import authenticate_user, create_access_token, get_password_hash, get_current_user
 from app.models.user import User, UserRole
 import logging
+import re
 
 logger = logging.getLogger(__name__)
 router = APIRouter()
 
 class UserCreate(BaseModel):
-    email: EmailStr
+    email: str
     username: str
     password: str
     full_name: str = None
+    
+    @validator('email')
+    def validate_email(cls, v):
+        if not re.match(r"[^@]+@[^@]+\.[^@]+", v):
+            raise ValueError('Email inválido')
+        return v
 
 class UserLogin(BaseModel):
-    email: EmailStr
+    email: str
     password: str
+    
+    @validator('email')
+    def validate_email(cls, v):
+        if not re.match(r"[^@]+@[^@]+\.[^@]+", v):
+            raise ValueError('Email inválido')
+        return v
 
 class Token(BaseModel):
     access_token: str
