@@ -3,7 +3,11 @@ services:
     name: generador-contenido-ia
     env: python
     buildCommand: pip install -r requirements.txt
-    startCommand: gunicorn wsgi:app --host 0.0.0.0 --port $PORT
+    startCommand: gunicorn wsgi:app --host 0.0.0.0 --port $PORT --workers 2
     envVars:
       - key: PYTHON_VERSION
-        value: 3.11.9 
+        value: 3.11.9
+      - key: FLASK_ENV
+        value: production
+      - key: FLASK_APP
+        value: app.main 
