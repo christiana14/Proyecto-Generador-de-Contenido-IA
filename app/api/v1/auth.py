@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
-from pydantic import BaseModel, field_validator
+from pydantic import BaseModel, validator
 from app.core.database import get_db
 from app.core.auth import authenticate_user, create_access_token, get_password_hash, get_current_user
 from app.models.user import User, UserRole
@@ -17,8 +17,7 @@ class UserCreate(BaseModel):
     password: str
     full_name: str = None
     
-    @field_validator('email')
-    @classmethod
+    @validator('email')
     def validate_email(cls, v):
         if not re.match(r"[^@]+@[^@]+\.[^@]+", v):
             raise ValueError('Email inválido')
@@ -28,8 +27,7 @@ class UserLogin(BaseModel):
     email: str
     password: str
     
-    @field_validator('email')
-    @classmethod
+    @validator('email')
     def validate_email(cls, v):
         if not re.match(r"[^@]+@[^@]+\.[^@]+", v):
             raise ValueError('Email inválido')
