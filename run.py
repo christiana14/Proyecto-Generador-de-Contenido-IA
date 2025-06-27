@@ -27,7 +27,6 @@ def main():
     try:
         import fastapi
         import openai
-        import stripe
         print("✅ Dependencias verificadas")
     except ImportError as e:
         print(f"❌ Dependencia faltante: {e}")

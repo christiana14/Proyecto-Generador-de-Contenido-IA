@@ -22,9 +22,9 @@ class User(Base):
     is_verified = Column(Boolean, default=False)
     role = Column(Enum(UserRole), default=UserRole.FREE)
     
-    # Stripe
-    stripe_customer_id = Column(String, nullable=True)
-    stripe_subscription_id = Column(String, nullable=True)
+    # Wompi
+    wompi_customer_id = Column(String, nullable=True)
+    wompi_subscription_id = Column(String, nullable=True)
     
     # Límites de uso
     monthly_generations_used = Column(Integer, default=0)

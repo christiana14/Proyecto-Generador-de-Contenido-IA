@@ -242,7 +242,7 @@ def main():
     print("1. Configura las variables en el archivo .env")
     print("2. Configura tu base de datos PostgreSQL")
     print("3. Obtén una API key de OpenAI")
-    print("4. Configura Stripe para pagos (opcional)")
+    print("4. Configura Wompi para pagos (opcional)")
     print("5. Ejecuta: python run.py")
     print("\n🌐 La aplicación estará disponible en: http://localhost:8000")
     print("📚 Documentación API: http://localhost:8000/docs")
